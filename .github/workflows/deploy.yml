@@ -101,8 +101,47 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `### 🚀 Preview Deployment Ready!\n\n**Preview URL:** ${{ steps.deploy.outputs.service_url }}\n\n**Environment:** \`pr-${{ github.event.pull_request.number }}\`\n**Commit:** ${{ github.sha }}`
+              body: `### 🚀 Preview Deployment Ready!\n\n**Preview URL:** ${{ steps.deploy.outputs.service_url }}\n\n**Environment:** \`pr-${{ github.event.pull_request.number }}\`\n**Commit:** ${{ github.sha }}\n\n> This preview will be automatically deleted when the PR is closed.`
             })
+
+      # NEW: Update Repository Description with Staging URL
+      - name: Update Staging URL in Repository
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // Update repository description with staging URL
+            await github.rest.repos.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              description: `NxtDo Backend API | 🚀 Staging: ${{ steps.deploy.outputs.service_url }}`
+            });
+            
+            console.log('Repository description updated with staging URL');
+
+      # NEW: Create GitHub Release with Staging Info  
+      - name: Create Staging Release
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const tagName = `staging-${context.sha.substring(0, 7)}`;
+            
+            try {
+              await github.rest.repos.createRelease({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                tag_name: tagName,
+                name: `Staging Deployment - ${new Date().toISOString().split('T')[0]}`,
+                body: `## 🚀 Staging Deployment\n\n**Staging URL:** ${{ steps.deploy.outputs.service_url }}\n**Commit:** ${context.sha}\n**Environment:** staging\n**Deployed:** ${new Date().toISOString()}\n\n### Changes\n${context.payload.head_commit?.message || 'Auto-deployment from main branch'}`,
+                prerelease: true,
+                draft: false
+              });
+              
+              console.log(`Created staging release: ${tagName}`);
+            } catch (error) {
+              console.log('Release creation failed:', error.message);
+            }
 
   # Cleanup PR preview environments after PR is closed/merged
   cleanup:
@@ -120,3 +159,16 @@ jobs:
             --region asia-south1 \
             --project=nxtdo-dev \
             --quiet || true
+
+      # NEW: Comment on merged PR with staging info
+      - name: Comment on Merged PR with Staging Info
+        if: github.event.pull_request.merged == true
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `### ✅ PR Merged & Deployed to Staging!\n\n🗑️ **Preview environment deleted**\n🚀 **Now live on staging:** https://nxtdo-api-staging-42m3vcanhq-el.a.run.app\n\n*Check the [Releases page](https://github.com/${context.repo.owner}/${context.repo.repo}/releases) for deployment details.*`
+            })
