@@ -1,6 +1,15 @@
-def main():
-    print("Hello from nxtdo-backend!")
+from fastapi import FastAPI
 
+app = FastAPI()
 
-if __name__ == "__main__":
-    main()
+@app.get("/")
+def read_root():
+    return {"message": "Hello from nxtdo-backend!"}
+
+@app.get("/health")
+def health_check():
+    return {"status": "healthy"}
+
+@app.get("/test")
+def test_endpoint():
+    return {"message": "This is a test endpoint from feature branch!", "environment": "preview"}
