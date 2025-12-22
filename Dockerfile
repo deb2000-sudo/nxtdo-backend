@@ -13,5 +13,8 @@ COPY --from=builder /app/.venv /app/.venv
 COPY . .
 ENV PATH="/app/.venv/bin:$PATH"
 
-# Run the app
-CMD ["fastapi", "run", "app/main.py", "--port", "8080", "--host", "0.0.0.0"]
+# Expose port
+EXPOSE 8080
+
+# Run the app with uvicorn
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]
