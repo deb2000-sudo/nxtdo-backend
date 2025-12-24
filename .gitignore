@@ -8,5 +8,26 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Environment files (NEVER COMMIT THESE)
 .env
-.env.local
+.env.*
+!.env.example
+
+# Firebase keys and secrets
+firebase-key.json
+*-key.json
+service-account*.json
+
+# Test files
+test_firebase.py
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
