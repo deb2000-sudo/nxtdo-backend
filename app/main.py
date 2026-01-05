@@ -53,7 +53,7 @@ class TaskUpdate(BaseModel):
 def read_root():
     settings = get_settings()
     return {
-        "message": "Hello from nxtdo-backend!",
+        "message": "Hello from nxtdo-backend! I am Debashis Nayak",
         "environment": settings.ENVIRONMENT,
         "project": settings.GCP_PROJECT_ID
     }
