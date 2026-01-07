@@ -31,3 +31,6 @@ test_firebase.py
 # OS
 .DS_Store
 Thumbs.db
+
+.env.local
+myenv/
