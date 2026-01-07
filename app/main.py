@@ -68,7 +68,7 @@ def health_check():
     }
 
 # Task CRUD endpoints
-@app.post("/tasks")
+@app.post("/task")
 def create_task(task: TaskCreate):
     """Create a new task"""
     try:
@@ -78,7 +78,7 @@ def create_task(task: TaskCreate):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@app.get("/tasks")
+@app.get("/task")
 def list_tasks(limit: int = 100):
     """List all tasks"""
     try:
@@ -93,7 +93,7 @@ def list_tasks(limit: int = 100):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@app.get("/tasks/{task_id}")
+@app.get("/task/{task_id}")
 def get_task(task_id: str):
     """Get a specific task"""
     try:
@@ -107,7 +107,7 @@ def get_task(task_id: str):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@app.put("/tasks/{task_id}")
+@app.put("/task/{task_id}")
 def update_task(task_id: str, task_update: TaskUpdate):
     """Update a task"""
     try:
@@ -128,7 +128,7 @@ def update_task(task_id: str, task_update: TaskUpdate):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@app.delete("/tasks/{task_id}")
+@app.delete("/task/{task_id}")
 def delete_task(task_id: str):
     """Delete a task"""
     try:
