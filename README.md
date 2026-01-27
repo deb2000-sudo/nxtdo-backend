@@ -125,3 +125,5 @@ uv run pytest
 ```bash
 uv run python .github/check.py
 ```
+
+Note: Follow these instructions to set up and run the application successfully.
