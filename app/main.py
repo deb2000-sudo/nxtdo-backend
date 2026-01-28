@@ -66,7 +66,9 @@ def health_check():
         "environment": settings.ENVIRONMENT,
         "firebase_project": settings.get_firebase_config()["project_id"]
     }
-
+@app.get("/about", response_class = None)
+def about():
+    return "This is all about backend"
 # Task CRUD endpoints
 @app.post("/tasks")
 def create_task(task: TaskCreate):
