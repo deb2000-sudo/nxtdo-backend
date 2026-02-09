@@ -82,6 +82,7 @@ def create_task(task: TaskCreate):
 def about_backend():
     return "This is all backend"
 
+
 @app.get("/tasks")
 def list_tasks(limit: int = 100):
     """List all tasks"""
