@@ -80,7 +80,10 @@ def create_task(task: TaskCreate):
 
 @app.get("/about",response_class=PlainTextResponse)
 def about_backend():
+    """List is going to be here in the future"""
+    """A simple endpoint to test backend connectivity"""
     return "This is all backend"
+
 
 @app.get("/tasks")
 def list_tasks(limit: int = 100):
