@@ -80,20 +80,10 @@ def create_task(task: TaskCreate):
 
 @app.get("/about",response_class=PlainTextResponse)
 def about_backend():
+    """List is going to be here in the future"""
+    """A simple endpoint to test backend connectivity"""
     return "This is all backend"
 
-@app.get("/incomplete")
-def get_incomplete_tasks():
-    """Get incomplete tasks"""
-    try:
-        db = get_db_service()
-        tasks = db.list_documents("tasks", filter_field="completed", filter_value=False)
-        return {
-            "tasks": tasks,
-            "count": len(tasks)
-        }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/tasks")
 def list_tasks(limit: int = 100):
