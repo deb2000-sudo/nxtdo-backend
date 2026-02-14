@@ -78,9 +78,11 @@ def create_task(task: TaskCreate):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+
+
 @app.get("/about",response_class=PlainTextResponse)
 def about_backend():
-    return "This is all backend"
+    return "This is part of backend"
 
 @app.get("/tasks")
 def list_tasks(limit: int = 100):
