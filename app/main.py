@@ -57,6 +57,9 @@ def read_root():
         "environment": settings.ENVIRONMENT,
         "project": settings.GCP_PROJECT_ID
     }
+@app.get("/about",response_class=PlainTextResponse)
+def about_backend():
+    return "This is all backend"
 
 @app.get("/health")
 def health_check():
