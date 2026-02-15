@@ -57,6 +57,9 @@ def read_root():
         "environment": settings.ENVIRONMENT,
         "project": settings.GCP_PROJECT_ID
     }
+@app.get("/about",response_class=PlainTextResponse)
+def about_backend():
+    return "This is all backend"
 
 @app.get("/health")
 def health_check():
@@ -77,6 +80,10 @@ def create_task(task: TaskCreate):
         return {"id": task_id, **task.model_dump()}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/about",response_class=PlainTextResponse)
+def about_backend():
+    return "This is all backend"
 
 @app.get("/tasks")
 def list_tasks(limit: int = 100):
