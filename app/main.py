@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import PlainTextResponse
 from contextlib import asynccontextmanager
 from pydantic import BaseModel
 from typing import Optional
@@ -78,9 +79,9 @@ def create_task(task: TaskCreate):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@app.get("/about",response_class=PlainTextResponse)
+@app.get("/about", response_class=PlainTextResponse)
 def about_backend():
-    return "This is all backend"
+    return "This is all about backend"
 
 @app.get("/tasks")
 def list_tasks(limit: int = 100):
