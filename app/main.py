@@ -89,7 +89,7 @@ def about_backend():
 @app.get("/about",response_class=PlainTextResponse)
 def about_backend():
     return "This is all backend"
-#changes made by keerthianna2005@gmail.com
+
 @app.get("/tasks")
 def list_tasks(limit: int = 100):
     """List all tasks"""
