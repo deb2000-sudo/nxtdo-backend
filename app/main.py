@@ -90,6 +90,10 @@ def about_backend():
 def about_backend():
     return "This is all backend"
 
+@app.get("/about",response_class=PlainTextResponse)
+def about_backend():
+    return "This is all backend"
+
 @app.get("/tasks")
 def list_tasks(limit: int = 100):
     """List all tasks"""
