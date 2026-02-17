@@ -68,6 +68,10 @@ def health_check():
     }
 
 # Task CRUD endpoints
+@app.post("/about",response_class=PlainTextResponse)
+def about_backend():
+    return "This is all backend"
+
 @app.post("/tasks")
 def create_task(task: TaskCreate):
     """Create a new task"""
