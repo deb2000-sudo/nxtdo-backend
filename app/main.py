@@ -3,6 +3,8 @@ from contextlib import asynccontextmanager
 from pydantic import BaseModel
 from typing import Optional
 import logging
+from fastapi.responses import PlainTextResponse
+
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -80,7 +82,7 @@ def create_task(task: TaskCreate):
 
 @app.get("/about",response_class=PlainTextResponse)
 def about_backend():
-    return "This is all backend"
+    return  "This is all about backend"
 
 @app.get("/tasks")
 def list_tasks(limit: int = 100):
