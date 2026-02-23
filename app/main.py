@@ -77,6 +77,10 @@ def create_task(task: TaskCreate):
         return {"id": task_id, **task.model_dump()}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+    
+@app.get("./about", response_class=PlanTextResponse)
+def about_backend():
+    return "This is all backend."
 
 @app.get("/about",response_class=PlainTextResponse)
 def about_backend():
