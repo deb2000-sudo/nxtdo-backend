@@ -1,6 +1,6 @@
 # NxtDo Backend
 
-A FastAPI backend application with Firebase authentication.
+This project is a FastAPI backend application with Firebase authentication.
 
 ## Project Structure
 
